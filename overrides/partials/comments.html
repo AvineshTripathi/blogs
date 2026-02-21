@@ -1,0 +1,30 @@
+{% if page.meta.comments != false %}
+<h2 id="__comments">{{ lang.t("meta.comments") }}</h2>
+
+<!-- Giscus Configuration -->
+<!-- To set up Giscus: -->
+<!-- 1. Go to https://giscus.app -->
+<!-- 2. Enter your GitHub repo (e.g. AvineshTripathi/blogs) -->
+<!-- 3. Enable GitHub Discussions on your repo -->
+<!-- 4. Select a Discussion Category (e.g. "Announcements") -->
+<!-- 5. Replace the values below with the ones from giscus.app -->
+
+<script
+  src="https://giscus.app/client.js"
+  data-repo="AvineshTripathi/blogs"
+  data-repo-id="REPLACE_WITH_REPO_ID"
+  data-category="Announcements"
+  data-category-id="REPLACE_WITH_CATEGORY_ID"
+  data-mapping="pathname"
+  data-strict="0"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="top"
+  data-theme="preferred_color_scheme"
+  data-lang="en"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  async
+>
+</script>
+{% endif %}
