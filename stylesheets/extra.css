@@ -1,0 +1,142 @@
+:root {
+  --md-primary-fg-color: #326ce5;
+  /* K8s Blue */
+  --md-primary-fg-color--light: #5c8ef2;
+  --md-primary-fg-color--dark: #2257d0;
+  --md-accent-fg-color: #326ce5;
+}
+
+/* Landing Page Customizations */
+.md-typeset h1,
+.md-content__button {
+  display: none;
+}
+
+.tx-hero {
+  margin: 0 auto;
+  max-width: 900px;
+  padding: 6rem 1rem;
+  text-align: left;
+  /* Formal left alignment */
+}
+
+.tx-hero h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+  color: var(--md-default-fg-color);
+  display: block;
+  /* Ensure it's visible */
+}
+
+.tx-hero p {
+  font-size: 1.25rem;
+  color: var(--md-default-fg-color--light);
+  margin-bottom: 2.5rem;
+  line-height: 1.6;
+  max-width: 700px;
+}
+
+.tx-hero-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-start;
+  /* Align with text */
+  margin-top: 2rem;
+}
+
+.tx-hero-btn {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  font-weight: 500;
+  /* Less bold, more formal */
+  text-decoration: none;
+  transition: all 0.2s ease;
+  font-size: 1rem;
+}
+
+.tx-hero-btn-primary {
+  background-color: var(--md-primary-fg-color);
+  color: white !important;
+  border: 1px solid var(--md-primary-fg-color);
+}
+
+.tx-hero-btn-secondary {
+  background-color: transparent;
+  border: 1px solid var(--md-default-fg-color--light);
+  color: var(--md-default-fg-color--light) !important;
+}
+
+.tx-hero-btn:hover {
+  opacity: 0.9;
+  text-decoration: none;
+  border-color: var(--md-primary-fg-color);
+  color: var(--md-primary-fg-color) !important;
+}
+
+/* Card Grid for Projects */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.card {
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: 8px;
+  padding: 1.5rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  background: var(--md-default-bg-color);
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  border-color: var(--md-primary-fg-color--light);
+}
+
+.card h3 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+.card p {
+  font-size: 0.9rem;
+  color: var(--md-default-fg-color--light);
+  margin-bottom: 1rem;
+}
+
+/* Blog List styling tweaks */
+.md-post__meta {
+  margin-bottom: 0.5rem;
+}
+
+/* 404 Page */
+.tx-404 {
+  margin: 0 auto;
+  max-width: 600px;
+  padding: 8rem 1rem;
+  text-align: center;
+}
+
+.tx-404 h1 {
+  font-size: 6rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: var(--md-primary-fg-color);
+  display: block;
+}
+
+.tx-404 p {
+  font-size: 1.2rem;
+  color: var(--md-default-fg-color--light);
+  line-height: 1.8;
+}
+
+.tx-404 a {
+  color: var(--md-primary-fg-color);
+  text-decoration: underline;
+}
