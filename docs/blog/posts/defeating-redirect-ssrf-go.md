@@ -19,7 +19,7 @@ But there is a more subtle, "ghostly" version of this attack that relies on the 
 
 ## The Learning Scenario: The Redirect Trap
 
-Recently, I’ve been digging into how backend services handle URL fetching—think OpenGraph metadata scrapers or link preview generators. The common pattern is: resolve the DNS, check if the IP is private, and if not, go ahead and fetch.
+In our day to day job as developers, we often deal with external services and APIs where we need to fetch data from a given URL. This could be to get some information about a user, a product, or anything else or in case of a webhook, we might need to send some data to a given URL. The common pattern we follow is: resolve the DNS, check if the IP is private, and if not, go ahead and fetch.
 
 The "Liar's Move" exploited by attackers works like this:
 
@@ -91,13 +91,14 @@ func TestVulnerableClient(t *testing.T) {
 
 ## Step 2: Hardening the Application Layer (L7)
 
-The first fix is to teach our `http.Client` to be skeptical of redirects. We use the `CheckRedirect` hook. This function runs before every hop. If the next destination is private, we kill the request.
+The first fix is to teach our `http.Client` to be skeptical of redirects. We use the [`CheckRedirect`](https://pkg.go.dev/net/http#Client) hook. This function runs before every hop. If the next destination is private, we kill the request.
 
 ```go
 func NewSecureClient() *http.Client {
     return &http.Client{
         CheckRedirect: func(req *http.Request, via []*http.Request) error {
             if len(via) >= 10 {
+                // by default http client follows 10 redirects, we can limit it to prevent infinite loops
                 return errors.New("stopped after 10 redirects")
             }
 
@@ -120,7 +121,6 @@ func NewSecureClient() *http.Client {
 }
 ```
 
-> [!IMPORTANT]
 > `CheckRedirect` is our first line of defense at the application logic layer (L7). It prevents the client from blindly following a trail that leads into your private VPC.
 
 ---
@@ -129,7 +129,7 @@ func NewSecureClient() *http.Client {
 
 Wait! There is still a catch. What if an attacker uses **DNS Rebinding**?
 
-This is a classic **Time-of-Check to Time-of-Use (TOCTOU)** vulnerability. The attacker makes a domain resolve to a public IP for your `CheckRedirect` logic (Time-of-Check). Then, they quickly swap the DNS record to point to a private IP (like `127.0.0.1`) right as the HTTP client tries to establish the actual TCP connection (Time-of-Use).
+This is a classic **Time-of-Check to Time-of-Use (TOCTOU)** vulnerability. The attacker makes a domain resolve to a public IP for your `CheckRedirect` logic (Time-of-Check). Then, they quickly swaps to point to a private IP (like `127.0.0.1`) right as the HTTP client tries to establish the actual TCP connection (Time-of-Use).
 
 To prevent this, we add a check at the **Network Layer (L4)**. By using the `Control` function in a `net.Dialer`, we can inspect the IP address at the exact moment the socket is being created, but before the connection is established. This is our "physical" barrier.
 
@@ -157,8 +157,7 @@ func HardenedTransport() *http.Transport {
 }
 ```
 
-> [!TIP]
-> This L4 check is the most robust defense because it doesn't care about DNS records or redirect headers—it only cares about the destination IP on the wire.
+> This L4 check is the most robust defense because it doesn't care about DNS records or redirect headers. It only cares about the destination IP on the wire.
 
 ---
 
@@ -207,7 +206,7 @@ func TestSecureClient(t *testing.T) {
 
 ## Summary
 
-By using a layered approach to security, we see that SSRF isn't just about the first URL you receive—it’s about every hop the client takes afterward.
+By using a layered approach to security, we see that SSRF isn't just about the first URL you receive. It’s about every hop the client takes afterward.
 
 *   **CheckRedirect (L7)** stops the logic of following a trail.
 *   **Dialer Control (L4)** acts as a physical barrier to the network, preventing DNS rebinding tricks.
@@ -218,8 +217,10 @@ When you stack these layers together, your Go applications become significantly 
 
 You can run the full simulation (both vulnerable and hardened scenarios) directly in the Go Playground:
 
-👉 **[Go Playground — Redirect SSRF Lab](https://go.dev/play/p/GaPS6kqDu_e)**
+👉 **[Go Playground - Redirect SSRF Lab](https://go.dev/play/p/GaPS6kqDu_e)**
 
 ---
 
-*Views are my own. Security is a moving target—always stay curious and skeptical.*
+*Views are my own. Security is a moving target. Always stay curious and skeptical.*
+
+*If you're interested in learning more about Kubernetes security, check out my other [posts](https://avineshtripathi.com/blogs/posts/defeating-redirect-ssrf-go.md) on the topic.*

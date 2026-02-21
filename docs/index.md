@@ -19,4 +19,4 @@ hide:
 
 Here are my latest articles on tech, engineering, and more.
 
-[Latest Posts check out Blog ->](blog/index.md)
+[Latest Posts check out Blog 👉](blog/index.md)

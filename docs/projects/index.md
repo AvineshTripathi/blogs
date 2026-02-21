@@ -1,5 +1,8 @@
-# Projects
-
+---
+hide:
+  - navigation
+  - toc
+---
 Check out some of the things I've built and contributed to.
 
 <div class="card-grid">

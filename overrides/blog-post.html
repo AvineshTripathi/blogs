@@ -1,0 +1,94 @@
+{% extends "main.html" %}
+{% import "partials/nav-item.html" as item with context %}
+
+{% block container %}
+<div class="md-content md-content--post" data-md-component="content">
+    <div class="md-sidebar md-sidebar--post" data-md-component="sidebar" data-md-type="navigation">
+        <div class="md-sidebar__scrollwrap">
+            <div class="md-sidebar__inner md-post">
+                <nav class="md-nav md-nav--primary">
+                    <div class="md-post__back">
+                        <a href="{{ page.parent.url | url }}" class="md-nav__link md-post__back--small">
+                            {% include ".icons/material/arrow-left.svg" %}
+                            <span class="md-ellipsis">
+                                Index
+                            </span>
+                        </a>
+                    </div>
+
+                    {% if page.authors %}
+                    <div class="md-post__authors md-typeset">
+                        {% for author in page.authors %}
+                        <div class="md-profile md-post__profile">
+                            <span class="md-author md-author--long">
+                                <img src="{{ author.avatar | url }}" alt="{{ author.name }}">
+                            </span>
+                            <span class="md-profile__description">
+                                <strong>
+                                    {% if author.url %}
+                                    <a href="{{ author.url | url }}">{{ author.name }}</a>
+                                    {% else %}
+                                    {{ author.name }}
+                                    {% endif %}
+                                </strong>
+                                <br>
+                                {{ author.description }}
+                            </span>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                    {# Removed Metadata section from sidebar #}
+
+                    {% if page.config.links %}
+                    <ul class="md-post__meta md-nav__list">
+                        <li class="md-nav__item md-nav__item--section">
+                            <div class="md-post__title">
+                                <span class="md-ellipsis">
+                                    {{ lang.t("blog.references") }}
+                                </span>
+                            </div>
+                            <nav class="md-nav">
+                                <ul class="md-nav__list">
+                                    {% for nav_item in page.config.links %}
+                                    {% set path = "__ref_" ~ loop.index %}
+                                    {{ item.render(nav_item, path, 1) }}
+                                    {% endfor %}
+                                </ul>
+                            </nav>
+                        </li>
+                    </ul>
+                    {% endif %}
+                </nav>
+                {% if "toc.integrate" in features %}
+                {% include "partials/toc.html" %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <article class="md-content__inner md-typeset">
+        {# Metadata in Content Area #}
+        <div class="md-post__content-meta">
+            <time datetime="{{ page.config.date.created }}">
+                {{- page.config.date.created | date -}}
+            </time>
+            {% if page.config.readtime %}
+            <span class="md-meta-separator">•</span>
+            <span>
+                {% set time = page.config.readtime %}
+                {% if time == 1 %}
+                {{ lang.t("readtime.one") }}
+                {% else %}
+                {{ lang.t("readtime.other") | replace("#", time) }}
+                {% endif %}
+            </span>
+            {% endif %}
+        </div>
+
+        {% block content %}
+        {% include "partials/content.html" %}
+        {% endblock %}
+    </article>
+</div>
+{% endblock %}

@@ -1,142 +1,394 @@
 :root {
-  --md-primary-fg-color: #326ce5;
-  /* K8s Blue */
-  --md-primary-fg-color--light: #5c8ef2;
-  --md-primary-fg-color--dark: #2257d0;
-  --md-accent-fg-color: #326ce5;
+  --md-primary-fg-color: #4f46e5;
+  /* Indigo 600 */
+  --md-primary-fg-color--light: #6366f1;
+  --md-primary-fg-color--dark: #3730a3;
+  --md-accent-fg-color: #10b981;
+  /* Emerald 500 */
+
+  /* Design Tokens */
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.3);
+  --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+  --btn-shadow: 0 4px 14px 0 rgba(79, 70, 229, 0.39);
+  --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[data-md-color-scheme="slate"] {
+  --glass-bg: rgba(30, 41, 59, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
 }
 
 /* Landing Page Customizations */
-.md-typeset h1,
 .md-content__button {
+  display: none;
+}
+
+/* Page Titles (H1) Logic */
+.md-typeset h1 {
+  display: block;
+  /* Show titles by default */
+  margin-top: 0;
+}
+
+/* Hide titles specifically on Landing page where we use a custom Hero */
+[data-md-color-nav-index="0"] .md-typeset h1,
+.tx-hero~.md-typeset h1 {
   display: none;
 }
 
 .tx-hero {
   margin: 0 auto;
-  max-width: 900px;
-  padding: 6rem 1rem;
+  max-width: 1000px;
+  padding: 8rem 1.5rem;
   text-align: left;
-  /* Formal left alignment */
+  position: relative;
+}
+
+/* Vibrant mesh-like gradient background for hero */
+.tx-hero::before {
+  content: "";
+  position: absolute;
+  top: -100px;
+  left: -10%;
+  width: 40%;
+  height: 300px;
+  background: radial-gradient(circle, rgba(79, 70, 229, 0.15) 0%, transparent 70%);
+  z-index: -1;
+  filter: blur(40px);
 }
 
 .tx-hero h1 {
-  font-size: 3rem;
-  font-weight: 700;
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 800;
   line-height: 1.1;
+  letter-spacing: -0.02em;
   margin-bottom: 1.5rem;
   color: var(--md-default-fg-color);
   display: block;
-  /* Ensure it's visible */
+  background: linear-gradient(135deg, var(--md-default-fg-color) 30%, var(--md-primary-fg-color) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .tx-hero p {
-  font-size: 1.25rem;
+  font-size: clamp(0.95rem, 2vw, 1.1rem);
   color: var(--md-default-fg-color--light);
   margin-bottom: 2.5rem;
   line-height: 1.6;
-  max-width: 700px;
+  max-width: 750px;
+  opacity: 0.9;
 }
 
 .tx-hero-buttons {
   display: flex;
-  gap: 1rem;
+  gap: 1.5rem;
   justify-content: flex-start;
-  /* Align with text */
   margin-top: 2rem;
+  flex-wrap: wrap;
 }
 
+/* Premium Buttons */
 .tx-hero-btn {
-  display: inline-block;
-  padding: 0.75rem 1.5rem;
-  border-radius: 4px;
-  font-weight: 500;
-  /* Less bold, more formal */
+  display: inline-flex;
+  align-items: center;
+  padding: 0.85rem 2rem;
+  border-radius: 50px;
+  /* Modern rounded look */
+  font-weight: 600;
   text-decoration: none;
-  transition: all 0.2s ease;
-  font-size: 1rem;
+  transition: var(--transition-smooth);
+  font-size: 1.1rem;
+  box-shadow: var(--glass-shadow);
 }
 
 .tx-hero-btn-primary {
-  background-color: var(--md-primary-fg-color);
+  background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
   color: white !important;
-  border: 1px solid var(--md-primary-fg-color);
+  border: none;
+  box-shadow: var(--btn-shadow);
+}
+
+.tx-hero-btn-primary:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 6px 20px rgba(79, 70, 229, 0.45);
+  filter: brightness(1.1);
 }
 
 .tx-hero-btn-secondary {
-  background-color: transparent;
-  border: 1px solid var(--md-default-fg-color--light);
-  color: var(--md-default-fg-color--light) !important;
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border);
+  color: var(--md-default-fg-color) !important;
 }
 
-.tx-hero-btn:hover {
-  opacity: 0.9;
-  text-decoration: none;
+.tx-hero-btn-secondary:hover {
+  background: var(--glass-border);
+  transform: translateY(-3px);
   border-color: var(--md-primary-fg-color);
   color: var(--md-primary-fg-color) !important;
 }
 
-/* Card Grid for Projects */
 .card-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 1.5rem;
-  margin-top: 2rem;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  /* Increased minimum width for wider cards */
+  gap: 2rem;
+  /* Slightly more gap for wider cards */
+  margin-top: 1rem;
 }
 
 .card {
-  border: 1px solid var(--md-default-fg-color--lightest);
-  border-radius: 8px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  /* Slightly tighter corners */
   padding: 1.5rem;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  background: var(--md-default-bg-color);
+  /* Reduced padding for compact feel */
+  transition: var(--transition-smooth);
+  box-shadow: var(--glass-shadow);
+  display: flex;
+  flex-direction: column;
 }
 
 .card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  transform: translateY(-8px);
   border-color: var(--md-primary-fg-color--light);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
 }
 
 .card h3 {
   margin-top: 0;
   margin-bottom: 0.5rem;
+  font-weight: 700;
+  color: var(--md-default-fg-color);
+  font-size: 1.2rem;
+  /* Larger card headings */
 }
 
 .card p {
   font-size: 0.9rem;
+  /* Slightly smaller for better balance */
   color: var(--md-default-fg-color--light);
-  margin-bottom: 1rem;
+  margin-bottom: 1.25rem;
+  line-height: 1.55;
+  flex-grow: 1;
 }
 
-/* Blog List styling tweaks */
-.md-post__meta {
+/* Tech stack styling in cards */
+.card code,
+.md-tag {
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.25rem 0.75rem;
+  margin-right: 0.5rem;
+  /* Added spacing between tags */
   margin-bottom: 0.5rem;
+  /* Space for wrapping */
+  display: inline-block;
+  border-radius: 4px;
 }
 
-/* 404 Page */
+/* Typography refinements */
+.md-typeset h2 {
+  font-size: 1.8rem;
+  font-weight: 800;
+  margin-top: 2.5rem;
+  letter-spacing: -0.01em;
+}
+
+.md-typeset h3 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-top: 1.75rem;
+}
+
+/* Blog list improvements */
+.md-post {
+  margin-bottom: 3rem;
+  padding-bottom: 3rem;
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.md-post:last-child {
+  border-bottom: none;
+}
+
+.md-post__title {
+  font-size: 0.85rem !important;
+  font-weight: 700 !important;
+  line-height: 1.4 !important;
+}
+
+.md-post__meta {
+  font-size: 0.85rem;
+  margin-bottom: 0.75rem;
+  color: var(--md-default-fg-color--light);
+}
+
+.md-post__excerpt {
+  font-size: 0.8rem;
+  line-height: 1.6;
+}
+
+/* Individual Blog Post Layout Refinements */
+.md-post__content-meta {
+  font-size: 0.85rem;
+  color: var(--md-default-fg-color--light);
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  opacity: 0.85;
+}
+
+.md-meta-separator {
+  color: var(--glass-border);
+}
+
+.md-post__back--small .md-nav__link {
+  font-size: 0.85rem !important;
+  font-weight: 500 !important;
+  color: var(--md-default-fg-color--light) !important;
+  opacity: 0.8;
+}
+
+.md-post__back--small .md-nav__link:hover {
+  opacity: 1;
+  color: var(--md-primary-fg-color) !important;
+}
+
+.md-post__back--small svg {
+  width: 0.9rem;
+  height: 0.9rem;
+}
+
+/* About Hero Section */
+.about-hero {
+  margin-bottom: 3rem;
+  padding: 1.5rem 0;
+}
+
+.about-hero__badge {
+  display: inline-block;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--md-primary-fg-color);
+  margin-bottom: 0.25rem;
+}
+
+.about-hero__location {
+  font-size: 0.95rem;
+  color: var(--md-default-fg-color--light);
+  font-style: italic;
+  margin-bottom: 1.25rem;
+}
+
+.about-hero__links {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.about-hero__link {
+  color: var(--md-default-fg-color) !important;
+  font-weight: 500;
+  font-size: 0.95rem;
+  text-decoration: none;
+  transition: var(--transition-smooth);
+}
+
+.about-hero__link:hover {
+  color: var(--md-primary-fg-color) !important;
+}
+
+.about-hero__dot {
+  color: var(--glass-border);
+  font-size: 0.8rem;
+}
+
+/* Comment UI Container */
+.giscus {
+  margin-top: 4rem;
+  padding: 2.5rem;
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  box-shadow: var(--glass-shadow);
+}
+
+#I_kwDON_0Ogc4CnOf_ {
+  margin-top: 2rem;
+}
+
+/* Section dividers */
+hr {
+  border: 0;
+  height: 1px;
+  background-image: linear-gradient(to right, transparent, var(--glass-border), transparent);
+  margin: 4rem 0;
+}
+
+/* 404 Page improvements */
 .tx-404 {
   margin: 0 auto;
   max-width: 600px;
-  padding: 8rem 1rem;
+  padding: 10rem 1.5rem;
   text-align: center;
 }
 
 .tx-404 h1 {
-  font-size: 6rem;
-  font-weight: 700;
+  font-size: clamp(5rem, 15vw, 8rem);
+  font-weight: 900;
+  letter-spacing: -0.05em;
+  background: linear-gradient(135deg, var(--md-primary-fg-color) 0%, var(--md-accent-fg-color) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
   margin-bottom: 1rem;
-  color: var(--md-primary-fg-color);
-  display: block;
 }
 
-.tx-404 p {
-  font-size: 1.2rem;
-  color: var(--md-default-fg-color--light);
-  line-height: 1.8;
+/* Sidebar Navigation Refinements */
+.md-nav__title {
+  font-size: 1.05rem;
+  font-weight: 800 !important;
+  letter-spacing: 0.01em;
+  text-transform: none;
+  color: var(--md-default-fg-color) !important;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
 }
 
-.tx-404 a {
-  color: var(--md-primary-fg-color);
-  text-decoration: underline;
+/* Specific cleanup for blog post sidebar navigation header */
+.md-sidebar--post .md-nav--primary .md-nav__title {
+  border-bottom: none;
+  padding-bottom: 0;
+  margin-bottom: 0.5rem;
+}
+
+.md-nav__link {
+  font-size: 1.05rem;
+  font-weight: 500;
+  transition: var(--transition-smooth);
+}
+
+.md-nav__link--active {
+  font-weight: 700;
+  color: var(--md-primary-fg-color) !important;
+}
+
+/* Nested TOC items in sidebar (e.g. About section sub-headings) */
+.md-nav--secondary .md-nav__link,
+.md-nav[data-md-level="2"] .md-nav__link {
+  font-size: 0.72rem !important;
+  font-weight: 400;
+  opacity: 0.75;
+  line-height: 1.3;
 }

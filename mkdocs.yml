@@ -11,6 +11,7 @@ theme:
     - navigation.sections
     - navigation.top
     - toc.follow
+    - toc.integrate
     - search.suggest
     - search.highlight
     - content.code.copy
@@ -18,15 +19,15 @@ theme:
   palette:
     - media: "(prefers-color-scheme: light)"
       scheme: default
-      primary: white
-      accent: blue
+      primary: indigo
+      accent: indigo
       toggle:
         icon: material/weather-sunny
         name: Switch to dark mode
     - media: "(prefers-color-scheme: dark)"
       scheme: slate
-      primary: black
-      accent: blue
+      primary: indigo
+      accent: indigo
       toggle:
         icon: material/weather-night
         name: Switch to light mode
@@ -65,10 +66,6 @@ plugins:
       post_url_date_format: yyyy/MM/dd
       post_url_format: "{date}/{slug}"
   - macros
-  - git-revision-date-localized:
-      type: timeago
-      enable_creation_date: true
-      fallback_to_build_date: true
   - rss:
       abstract_chars_count: 160
 
@@ -95,7 +92,5 @@ extra_css:
 nav:
   - Home: index.md
   - Projects: projects/index.md
-  - Blog:
-      - blog/index.md
-  - Now: now.md
+  - Blog: blog/index.md
   - About: about.md

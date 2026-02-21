@@ -1,1 +1,6 @@
-# Blog
+---
+hide:
+  - navigation
+#   - toc
+---
+# Blogs

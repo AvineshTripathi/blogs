@@ -1,10 +1,29 @@
-# Avinesh Tripathi
+<div align="center" style="margin-bottom: 40px;">
+  <h1 style="border-bottom: none; margin-bottom: 5px; font-size: 2.5rem;">Avinesh Tripathi</h1>
+  <div style="font-size: 1.2rem; color: #586069; font-weight: 500; margin-bottom: 15px;">
+    Software Engineer • Cloud & Security
+  </div>
+  
+  <div style="margin-bottom: 20px;">
+    <span style="background: #f1f8ff; color: #0366d6; padding: 4px 12px; border-radius: 20px; font-size: 0.9rem; font-weight: bold; border: 1px solid #c8e1ff;">
+      📍 Based in India
+    </span>
+  </div>
 
-**Software Engineer**
-*Ahmedabad, Gujarat, India*
-
-[Email](mailto:work.avinesh@gmail.com) • [LinkedIn](https://linkedin.com/in/avineshtripathi) • [GitHub](https://github.com/AvineshTripathi)
-
+  <div style="display: flex; justify-content: center; gap: 15px; font-weight: 600;">
+    <a href="mailto:work.avinesh@gmail.com" style="text-decoration: none; color: #0366d6;">
+      Email
+    </a>
+    <span style="color: #d1d5da;">|</span>
+    <a href="https://linkedin.com/in/avineshtripathi" style="text-decoration: none; color: #0366d6;">
+      LinkedIn
+    </a>
+    <span style="color: #d1d5da;">|</span>
+    <a href="https://github.com/AvineshTripathi" style="text-decoration: none; color: #0366d6;">
+    GitHub
+    </a>
+  </div>
+</div>
 ---
 
 ## Experience
