@@ -16,7 +16,7 @@ hide:
   
   <div class="tx-hero-buttons">
     <a href="projects/" class="tx-hero-btn tx-hero-btn-primary">View Work</a>
-    <a href="about/" class="tx-hero-btn tx-hero-btn-secondary">About Me</a>
+    <a href="about/" class="tx-hero-btn tx-hero-btn-primary">About Me</a>
     <a href="blog/" class="tx-hero-btn tx-hero-btn-primary">Blog</a>
   </div>
 </div>
