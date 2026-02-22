@@ -223,4 +223,4 @@ You can run the full simulation (both vulnerable and hardened scenarios) directl
 
 *Views are my own. Security is a moving target. Always stay curious and skeptical.*
 
-*If you're interested in learning more about Kubernetes security, check out my other [posts](https://avineshtripathi.com/blogs/posts/defeating-redirect-ssrf-go.md) on the topic.*
+*If you're interested in learning more about Kubernetes security, check out my other [posts](metrics-tls-kustomize.md) on the topic.*
