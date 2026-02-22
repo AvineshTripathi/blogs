@@ -27,7 +27,7 @@ Check out some of the things I've built and contributed to.
   </div>
 </a>
 
-<a href="https://github.com/AvineshTripathi" class="card">
+<a href="https://github.com/AvineshTripathi/orch" class="card">
   <h3>Orch — Plugin-based Task Executor</h3>
   <p>A plugin-based task executor in Go supporting dynamic .so plugins with an API-driven task routing system and retry mechanisms.</p>
   <div class="tag-container">
@@ -36,7 +36,7 @@ Check out some of the things I've built and contributed to.
   </div>
 </a>
 
-<a href="https://github.com/AvineshTripathi" class="card">
+<a href="https://github.com/AvineshTripathi/sage" class="card">
   <h3>Sage — Self-Healing Agent</h3>
   <p>A command execution engine that validates Linux command outputs and monitors system metrics with self-healing capabilities.</p>
   <div class="tag-container">
