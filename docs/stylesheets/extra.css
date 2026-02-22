@@ -20,6 +20,29 @@
   --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
 }
 
+/* Layout Container for the lower section */
+.home-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  margin-top: 2rem;
+}
+
+@media (max-width: 768px) {
+  .home-container {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
+/* Fix for the "Latest Insights" section alignment */
+.section-heading {
+  border-bottom: 2px solid var(--md-primary-fg-color--light);
+  display: inline-block;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+}
+
 /* Landing Page Customizations */
 .md-content__button {
   display: none;
@@ -41,7 +64,7 @@
 .tx-hero {
   margin: 0 auto;
   max-width: 1000px;
-  padding: 8rem 1.5rem;
+  padding: 2rem 0.5rem;
   text-align: left;
   position: relative;
 }
@@ -156,7 +179,7 @@
   flex-direction: column;
 }
 
-.card:hover {
+.card/hover {
   transform: translateY(-8px);
   border-color: var(--md-primary-fg-color--light);
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
@@ -181,17 +204,37 @@
 }
 
 /* Tech stack styling in cards */
+/* .card code, */
+/* .md-tag { */
+  /* font-size: 0.85rem; */
+  /* font-weight: 600; */
+  /* padding: 0.25rem 0.75rem; */
+  /* margin-right: 0.5rem; */
+  /* Added spacing between tags */
+  /* margin-bottom: 0.5rem;
+  /* Space for wrapping */
+  /* display: inline-block; */
+  /* border-radius: 4px;
+} */
+
+/* Tech stack styling in cards */
 .card code,
 .md-tag {
-  font-size: 0.85rem;
-  font-weight: 600;
-  padding: 0.25rem 0.75rem;
-  margin-right: 0.5rem;
-  /* Added spacing between tags */
-  margin-bottom: 0.5rem;
-  /* Space for wrapping */
-  display: inline-block;
-  border-radius: 4px;
+  display: inline-block;       /* Shrink-wraps the tag to the text size */
+  width: fit-content;          /* Extra insurance for modern browsers */
+  padding: 4px 12px;           /* Gives the text some breathing room */
+  margin-right: 8px;           /* Spaces out tags horizontally */
+  margin-bottom: 8px;          /* Spaces out tags if they wrap to a new line */
+  border-radius: 20px;         /* Keeps that nice pill shape from your screenshot */
+  background: rgba(0, 0, 0, 0.05); /* Adjust based on your light/dark mode */
+  font-size: 0.8rem;
+  white-space: nowrap;         /* Prevents "Open Source" from breaking into two lines */
+}
+
+.tag-container {
+  display: flex;
+  flex-wrap: wrap; /* Allows tags to flow to the next line if the card gets too narrow */
+  margin-top: 1rem;
 }
 
 /* Typography refinements */
@@ -392,3 +435,14 @@ hr {
   opacity: 0.75;
   line-height: 1.3;
 }
+
+/* Remove Table of Contents on mobile */
+@media screen and (max-width: 1220px) {
+
+  .md-sidebar--secondary,
+  .md-sidebar--post,
+  .md-nav--secondary {
+    display: none !important;
+  }
+}
+

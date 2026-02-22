@@ -38,6 +38,15 @@ theme:
     repo: fontawesome/brands/github
 
 extra:
+  generator: false
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/AvineshTripathi
+    - icon: fontawesome/brands/linkedin
+      link: https://www.linkedin.com/in/avineshtripathi/
+    - icon: fontawesome/solid/envelope
+      link: mailto:work.avinesh@gmail.com
+
   analytics:
     provider: google
     property: !ENV [GOOGLE_ANALYTICS_PROPERTY] # Set this via env var or replace with G-XXXXXXXXXX
@@ -94,3 +103,7 @@ nav:
   - Projects: projects/index.md
   - Blog: blog/index.md
   - About: about.md
+
+copyright: >
+  Copyright &copy; 2026 <strong>Avinesh Tripathi</strong> &bull; 
+  Software Engineer &bull; Cloud Native & Open Source
