@@ -543,15 +543,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-1-seeing-the-vulnerability-the-before-test" class="md-nav__link">
+  <a href="#reproducing-the-exploit" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 1: Seeing the Vulnerability (The "Before" Test)
+        Reproducing the Exploit
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Step 1: Seeing the Vulnerability (The &#34;Before&#34; Test)">
+    <nav class="md-nav" aria-label="Reproducing the Exploit">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -582,10 +582,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-2-hardening-the-application-layer-l7" class="md-nav__link">
+  <a href="#l7-mitigation-redirect-validation-via-checkredirect" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 2: Hardening the Application Layer (L7)
+        L7 Mitigation: Redirect Validation via CheckRedirect
       
     </span>
   </a>
@@ -593,10 +593,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-3-the-ultimate-safety-net-l4" class="md-nav__link">
+  <a href="#l4-mitigation-closing-the-dns-rebinding-window" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 3: The Ultimate Safety Net (L4)
+        L4 Mitigation: Closing the DNS Rebinding Window
       
     </span>
   </a>
@@ -604,15 +604,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-4-the-final-after-test" class="md-nav__link">
+  <a href="#validating-the-layered-defense" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 4: The Final "After" Test
+        Validating the Layered Defense
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Step 4: The Final &#34;After&#34; Test">
+    <nav class="md-nav" aria-label="Validating the Layered Defense">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -761,7 +761,7 @@
     Internal--&gt;&gt;Server: Sensitive Data
     Server--&gt;&gt;Attacker: Metadata (containing sensitive data)</code></pre>
 <hr />
-<h2 id="step-1-seeing-the-vulnerability-the-before-test">Step 1: Seeing the Vulnerability (The "Before" Test)</h2>
+<h2 id="reproducing-the-exploit">Reproducing the Exploit</h2>
 <p>To understand this, let's write a Go test that simulates an attacker. We set up two servers: an "internal" server with confidential data, and a "malicious" server that redirects our client into it.</p>
 <h3 id="the-vulnerable-code">The Vulnerable Code</h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kd">func</span><span class="w"> </span><span class="nx">FetchMetadata</span><span class="p">(</span><span class="nx">client</span><span class="w"> </span><span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Client</span><span class="p">,</span><span class="w"> </span><span class="nx">url</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Response</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
@@ -790,8 +790,11 @@
 <a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a><span class="p">}</span>
 </code></pre></div>
 <hr />
-<h2 id="step-2-hardening-the-application-layer-l7">Step 2: Hardening the Application Layer (L7)</h2>
+<h2 id="l7-mitigation-redirect-validation-via-checkredirect">L7 Mitigation: Redirect Validation via CheckRedirect</h2>
 <p>The first fix is to teach our <code>http.Client</code> to be skeptical of redirects. We use the <a href="https://pkg.go.dev/net/http#Client"><code>CheckRedirect</code></a> hook. This function runs before every hop. If the next destination is private, we kill the request.</p>
+<blockquote>
+<p>In a microservices architecture, any service that accepts user provided webhook receivers, link preview generators, callback handlers, etc. are potential SSRF surfaces. At scale, you can't rely on every team writing their own validation. The answer is a hardened HTTP client that lives in a shared library(client library good but not always, will discuss this in some other post).</p>
+</blockquote>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kd">func</span><span class="w"> </span><span class="nx">NewSecureClient</span><span class="p">()</span><span class="w"> </span><span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Client</span><span class="w"> </span><span class="p">{</span>
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">http</span><span class="p">.</span><span class="nx">Client</span><span class="p">{</span>
 <a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">        </span><span class="nx">CheckRedirect</span><span class="p">:</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">req</span><span class="w"> </span><span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">,</span><span class="w"> </span><span class="nx">via</span><span class="w"> </span><span class="p">[]</span><span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span><span class="w"> </span><span class="p">{</span>
@@ -818,11 +821,12 @@
 <a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a><span class="w">    </span><span class="p">}</span>
 <a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a><span class="p">}</span>
 </code></pre></div>
-<blockquote>
 <p><code>CheckRedirect</code> is our first line of defense at the application logic layer (L7). It prevents the client from blindly following a trail that leads into your private VPC.</p>
+<blockquote>
+<p><code>CheckRedirect</code> adds a small overhead per connection. In latency-sensitive paths, you may want to benchmark this.</p>
 </blockquote>
 <hr />
-<h2 id="step-3-the-ultimate-safety-net-l4">Step 3: The Ultimate Safety Net (L4)</h2>
+<h2 id="l4-mitigation-closing-the-dns-rebinding-window">L4 Mitigation: Closing the DNS Rebinding Window</h2>
 <p>Wait! There is still a catch. What if an attacker uses <strong>DNS Rebinding</strong>?</p>
 <p>This is a classic <strong>Time-of-Check to Time-of-Use (TOCTOU)</strong> vulnerability. The attacker makes a domain resolve to a public IP for your <code>CheckRedirect</code> logic (Time-of-Check). Then, they quickly swaps to point to a private IP (like <code>127.0.0.1</code>) right as the HTTP client tries to establish the actual TCP connection (Time-of-Use).</p>
 <p>To prevent this, we add a check at the <strong>Network Layer (L4)</strong>. By using the <code>Control</code> function in a <code>net.Dialer</code>, we can inspect the IP address at the exact moment the socket is being created, but before the connection is established. This is our "physical" barrier.</p>
@@ -849,10 +853,11 @@
 <a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a><span class="p">}</span>
 </code></pre></div>
 <blockquote>
+<p>It's worth noting that cloud metadata endpoints (like AWS/GCP's 169.254.169.254) need explicit blocking. It's worth calling out explicitly.</p>
 <p>This L4 check is the most robust defense because it doesn't care about DNS records or redirect headers. It only cares about the destination IP on the wire.</p>
 </blockquote>
 <hr />
-<h2 id="step-4-the-final-after-test">Step 4: The Final "After" Test</h2>
+<h2 id="validating-the-layered-defense">Validating the Layered Defense</h2>
 <p>Now, let's combine both L7 and L4 protections into a "Hardened Client" and run our test again.</p>
 <h3 id="the-hardened-client">The Hardened Client</h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kd">func</span><span class="w"> </span><span class="nx">HardenedClient</span><span class="p">()</span><span class="w"> </span><span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Client</span><span class="w"> </span><span class="p">{</span>
