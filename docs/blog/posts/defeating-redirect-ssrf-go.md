@@ -51,7 +51,7 @@ sequenceDiagram
 
 ---
 
-## Step 1: Seeing the Vulnerability (The "Before" Test)
+## Reproducing the Exploit
 
 To understand this, let's write a Go test that simulates an attacker. We set up two servers: an "internal" server with confidential data, and a "malicious" server that redirects our client into it.
 
@@ -89,9 +89,11 @@ func TestVulnerableClient(t *testing.T) {
 
 ---
 
-## Step 2: Hardening the Application Layer (L7)
+## L7 Mitigation: Redirect Validation via CheckRedirect
 
 The first fix is to teach our `http.Client` to be skeptical of redirects. We use the [`CheckRedirect`](https://pkg.go.dev/net/http#Client) hook. This function runs before every hop. If the next destination is private, we kill the request.
+
+> In a microservices architecture, any service that accepts user provided webhook receivers, link preview generators, callback handlers, etc. are potential SSRF surfaces. At scale, you can't rely on every team writing their own validation. The answer is a hardened HTTP client that lives in a shared library(client library good but not always, will discuss this in some other post).
 
 ```go
 func NewSecureClient() *http.Client {
@@ -121,11 +123,13 @@ func NewSecureClient() *http.Client {
 }
 ```
 
-> `CheckRedirect` is our first line of defense at the application logic layer (L7). It prevents the client from blindly following a trail that leads into your private VPC.
+`CheckRedirect` is our first line of defense at the application logic layer (L7). It prevents the client from blindly following a trail that leads into your private VPC.
+
+> `CheckRedirect` adds a small overhead per connection. In latency-sensitive paths, you may want to benchmark this.
 
 ---
 
-## Step 3: The Ultimate Safety Net (L4)
+## L4 Mitigation: Closing the DNS Rebinding Window
 
 Wait! There is still a catch. What if an attacker uses **DNS Rebinding**?
 
@@ -157,11 +161,13 @@ func HardenedTransport() *http.Transport {
 }
 ```
 
+> It's worth noting that cloud metadata endpoints (like AWS/GCP's 169.254.169.254) need explicit blocking. It's worth calling out explicitly.
+
 > This L4 check is the most robust defense because it doesn't care about DNS records or redirect headers. It only cares about the destination IP on the wire.
 
 ---
 
-## Step 4: The Final "After" Test
+## Validating the Layered Defense
 
 Now, let's combine both L7 and L4 protections into a "Hardened Client" and run our test again.
 
