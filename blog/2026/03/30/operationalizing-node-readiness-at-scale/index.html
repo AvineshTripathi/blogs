@@ -8,7 +8,7 @@
       
       
       
-        <link rel="canonical" href="https://avinesh.dev/blog/2026/03/30/operationalizing-node-readiness-at-scale--slos-metrics-and-what-happens-when-a-gpu-node-isnt-ready/">
+        <link rel="canonical" href="https://avinesh.dev/blog/2026/03/30/operationalizing-node-readiness-at-scale/">
       
       
         <link rel="prev" href="../../../02/21/the-ghost-in-the-machine-defeating-redirect-ssrf-in-go/">
@@ -26,7 +26,7 @@
     
     
       
-        <title>Operationalizing Node Readiness at Scale — SLOs, Metrics, and What Happens When a GPU Node Isn't Ready - Avinesh Tripathi</title>
+        <title>Operationalizing Node Readiness at Scale - Avinesh Tripathi</title>
       
     
     
@@ -89,7 +89,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#operationalizing-node-readiness-at-scale-slos-metrics-and-what-happens-when-a-gpu-node-isnt-ready" class="md-skip">
+        <a href="#operationalizing-node-readiness-at-scale" class="md-skip">
           Skip to content
         </a>
       
@@ -123,7 +123,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Operationalizing Node Readiness at Scale — SLOs, Metrics, and What Happens When a GPU Node Isn't Ready
+              Operationalizing Node Readiness at Scale
             
           </span>
         </div>
@@ -676,7 +676,7 @@
   
 
 
-<h1 id="operationalizing-node-readiness-at-scale-slos-metrics-and-what-happens-when-a-gpu-node-isnt-ready">Operationalizing Node Readiness at Scale — SLOs, Metrics, and What Happens When a GPU Node Isn't Ready</h1>
+<h1 id="operationalizing-node-readiness-at-scale">Operationalizing Node Readiness at Scale</h1>
 <p>Infrastructure war stories from the AI era usually start the same way: a training job queued, GPUs theoretically available, nodes technically "Ready"  and yet, nothing runs. You dig in. The DRA driver wasn't initialized. Calico hadn't finished programming the network dataplane. The node was marked Ready by kubelet before the workload runtime was live.</p>
 <p>This is the node readiness gap. And at scale, it gets expensive fast.</p>
 <!-- more -->
@@ -795,7 +795,7 @@
 <ul>
 <li>Which rule is my bottleneck during node scale-up?</li>
 <li>Why did 3 nodes in zone-B take 8 minutes to become schedulable this morning?</li>
-<li>Am I meeting my node availability SLO for my GPU pool?\</li>
+<li>Am I meeting my node availability SLO for my GPU pool?</li>
 <li>I have few drivers that take a lot more time then expected, should I switch?</li>
 </ul>
 <p>These questions matter even more as AI infrastructure scales.</p>
