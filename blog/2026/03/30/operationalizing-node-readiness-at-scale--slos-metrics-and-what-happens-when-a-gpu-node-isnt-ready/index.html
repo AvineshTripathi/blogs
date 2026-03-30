@@ -8,34 +8,32 @@
       
       
       
-        <link rel="canonical" href="https://avinesh.dev/blog/">
+        <link rel="canonical" href="https://avinesh.dev/blog/2026/03/30/operationalizing-node-readiness-at-scale--slos-metrics-and-what-happens-when-a-gpu-node-isnt-ready/">
       
       
-        <link rel="prev" href="../projects/">
+        <link rel="prev" href="../../../02/21/the-ghost-in-the-machine-defeating-redirect-ssrf-in-go/">
       
-      
-        <link rel="next" href="../about/">
       
       
         
       
       
-        <link rel="alternate" type="application/rss+xml" title="RSS feed" href="../feed_rss_created.xml">
-        <link rel="alternate" type="application/rss+xml" title="RSS feed of updated content" href="../feed_rss_updated.xml">
+        <link rel="alternate" type="application/rss+xml" title="RSS feed" href="../../../../../feed_rss_created.xml">
+        <link rel="alternate" type="application/rss+xml" title="RSS feed of updated content" href="../../../../../feed_rss_updated.xml">
       
-      <link rel="icon" href="../assets/images/favicon.png">
+      <link rel="icon" href="../../../../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
-        <title>Blogs - Avinesh Tripathi</title>
+        <title>Operationalizing Node Readiness at Scale — SLOs, Metrics, and What Happens When a GPU Node Isn't Ready - Avinesh Tripathi</title>
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../../../../assets/stylesheets/main.484c7ddc.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../../../../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -54,9 +52,9 @@
       
     
     
-      <link rel="stylesheet" href="../stylesheets/extra.css">
+      <link rel="stylesheet" href="../../../../../stylesheets/extra.css">
     
-    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
   
@@ -91,7 +89,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#blogs" class="md-skip">
+        <a href="#operationalizing-node-readiness-at-scale-slos-metrics-and-what-happens-when-a-gpu-node-isnt-ready" class="md-skip">
           Skip to content
         </a>
       
@@ -105,7 +103,7 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href=".." title="Avinesh Tripathi" class="md-header__button md-logo" aria-label="Avinesh Tripathi" data-md-component="logo">
+    <a href="../../../../.." title="Avinesh Tripathi" class="md-header__button md-logo" aria-label="Avinesh Tripathi" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -125,7 +123,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Blogs
+              Operationalizing Node Readiness at Scale — SLOs, Metrics, and What Happens When a GPU Node Isn't Ready
             
           </span>
         </div>
@@ -238,7 +236,7 @@
   
   
     <li class="md-tabs__item">
-      <a href=".." class="md-tabs__link">
+      <a href="../../../../.." class="md-tabs__link">
         
   
   
@@ -257,7 +255,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../projects/" class="md-tabs__link">
+      <a href="../../../../../projects/" class="md-tabs__link">
         
   
   
@@ -278,7 +276,7 @@
   
   
     <li class="md-tabs__item md-tabs__item--active">
-      <a href="./" class="md-tabs__link">
+      <a href="../../../../" class="md-tabs__link">
         
   
   
@@ -297,7 +295,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../about/" class="md-tabs__link">
+      <a href="../../../../../about/" class="md-tabs__link">
         
   
   
@@ -336,7 +334,7 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href=".." title="Avinesh Tripathi" class="md-nav__button md-logo" aria-label="Avinesh Tripathi" data-md-component="logo">
+    <a href="../../../../.." title="Avinesh Tripathi" class="md-nav__button md-logo" aria-label="Avinesh Tripathi" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -366,7 +364,7 @@
   
   
     <li class="md-nav__item">
-      <a href=".." class="md-nav__link">
+      <a href="../../../../.." class="md-nav__link">
         
   
   
@@ -393,7 +391,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../projects/" class="md-nav__link">
+      <a href="../../../../../projects/" class="md-nav__link">
         
   
   
@@ -421,19 +419,10 @@
   
   
     
-      
-    
   
   
     <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+      <a href="../../../../" class="md-nav__link">
         
   
   
@@ -449,7 +438,6 @@
   
 
       </a>
-      
     </li>
   
 
@@ -461,7 +449,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../about/" class="md-nav__link">
+      <a href="../../../../../about/" class="md-nav__link">
         
   
   
@@ -490,135 +478,350 @@
             
           
           
-  <div class="md-content" data-md-component="content">
-    <div class="md-content__inner">
-      <header class="md-typeset">
-        <h1 id="blogs">Blogs</h1>
-      </header>
-      
-        <article class="md-post md-post--excerpt">
-  <header class="md-post__header">
+<div class="md-content md-content--post" data-md-component="content">
+    <div class="md-sidebar md-sidebar--post" data-md-component="sidebar" data-md-type="navigation">
+        <div class="md-sidebar__scrollwrap">
+            <div class="md-sidebar__inner md-post">
+                <nav class="md-nav md-nav--primary">
+                    <div class="md-post__back">
+                        <a href="../../../../" class="md-nav__link md-post__back--small">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+                            <span class="md-ellipsis">
+                                Index
+                            </span>
+                        </a>
+                    </div>
+
+                    
+
+                    
+
+                    
+                </nav>
+                
+                
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
     
-    <div class="md-post__meta md-meta">
-      <ul class="md-meta__list">
-        <li class="md-meta__item">
-          <time datetime="2026-03-30 00:00:00+00:00">March 30, 2026</time></li>
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-massive-workload-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Massive Workload Problem
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-node-readiness-controller-does" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Node Readiness Controller Does
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#framing-slos-for-node-readiness" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Framing SLOs for Node Readiness
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Framing SLOs for Node Readiness">
+      <ul class="md-nav__list">
         
+          <li class="md-nav__item">
+  <a href="#slo-1-time-to-ready-node-bootstrap-latency" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SLO 1: "Time-to-Ready" (Node Bootstrap Latency)
+      
+    </span>
+  </a>
+  
+</li>
         
-          
-          <li class="md-meta__item">
-            
-              4 min read
-            
-          </li>
+          <li class="md-nav__item">
+  <a href="#slo-2-controller-evaluation-latency-performance-slo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SLO 2: Controller Evaluation Latency (Performance SLO)
+      
+    </span>
+  </a>
+  
+</li>
         
+          <li class="md-nav__item">
+  <a href="#slo-3-rule-compliance-ratio-availability-slo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SLO 3: Rule Compliance Ratio (Availability SLO)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#slo-4-false-positive-scheduling-rate-zero-tolerance-slo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SLO 4: False Positive Scheduling Rate (Zero-Tolerance SLO)
+      
+    </span>
+  </a>
+  
+</li>
         
       </ul>
+    </nav>
+  
+</li>
       
-    </div>
-  </header>
-  <div class="md-post__content md-typeset">
-    <h2 id="operationalizing-node-readiness-at-scale-slos-metrics-and-what-happens-when-a-gpu-node-isnt-ready"><a class="toclink" href="2026/03/30/operationalizing-node-readiness-at-scale--slos-metrics-and-what-happens-when-a-gpu-node-isnt-ready/">Operationalizing Node Readiness at Scale — SLOs, Metrics, and What Happens When a GPU Node Isn't Ready</a></h2>
-<p>Infrastructure war stories from the AI era usually start the same way: a training job queued, GPUs theoretically available, nodes technically "Ready"  and yet, nothing runs. You dig in. The DRA driver wasn't initialized. Calico hadn't finished programming the network dataplane. The node was marked Ready by kubelet before the workload runtime was live.</p>
-<p>This is the node readiness gap. And at scale, it gets expensive fast.</p>
-
-    
-      <nav class="md-post__action">
-        <a href="2026/03/30/operationalizing-node-readiness-at-scale--slos-metrics-and-what-happens-when-a-gpu-node-isnt-ready/">
-          Continue reading
-        </a>
-      </nav>
-    
-    
-  </div>
-</article>
+        <li class="md-nav__item">
+  <a href="#what-nrc-exposes-today" class="md-nav__link">
+    <span class="md-ellipsis">
       
-        <article class="md-post md-post--excerpt">
-  <header class="md-post__header">
-    
-    <div class="md-post__meta md-meta">
-      <ul class="md-meta__list">
-        <li class="md-meta__item">
-          <time datetime="2026-02-21 00:00:00+00:00">February 21, 2026</time></li>
-        
-        
-          
-          <li class="md-meta__item">
-            
-              5 min read
-            
-          </li>
-        
-        
-      </ul>
+        What NRC Exposes Today
       
-    </div>
-  </header>
-  <div class="md-post__content md-typeset">
-    <h2 id="the-ghost-in-the-machine-defeating-redirect-ssrf-in-go"><a class="toclink" href="2026/02/21/the-ghost-in-the-machine-defeating-redirect-ssrf-in-go/">The Ghost in the Machine: Defeating Redirect SSRF in Go</a></h2>
-<p>In the world of web security, we often talk about Server-Side Request Forgery (SSRF) as a direct attack: an attacker tells a server to fetch <code>http://localhost:8080</code>, and the server blindly obeys. Most developers now know to check the initial URL to ensure it doesn't point to a private IP.</p>
-<p>But there is a more subtle, "ghostly" version of this attack that relies on the way HTTP clients handle redirects. It’s a fascinating look at how trust can be exploited across different layers of the network stack, and it shows why a simple IP check on the initial URL is rarely enough.</p>
-
-    
-      <nav class="md-post__action">
-        <a href="2026/02/21/the-ghost-in-the-machine-defeating-redirect-ssrf-in-go/">
-          Continue reading
-        </a>
-      </nav>
-    
-    
-  </div>
-</article>
+    </span>
+  </a>
+  
+</li>
       
-        <article class="md-post md-post--excerpt">
-  <header class="md-post__header">
-    
-    <div class="md-post__meta md-meta">
-      <ul class="md-meta__list">
-        <li class="md-meta__item">
-          <time datetime="2026-02-12 00:00:00+00:00">February 12, 2026</time></li>
-        
-        
-          
-          <li class="md-meta__item">
-            
-              7 min read
-            
-          </li>
-        
-        
-      </ul>
+        <li class="md-nav__item">
+  <a href="#a-conversation-worth-having-publicly" class="md-nav__link">
+    <span class="md-ellipsis">
       
-    </div>
-  </header>
-  <div class="md-post__content md-typeset">
-    <h2 id="adding-metrics-tls-to-a-kubernetes-controller-the-kustomize-way"><a class="toclink" href="2026/02/12/adding-metrics--tls-to-a-kubernetes-controller---the-kustomize-way/">Adding Metrics &amp; TLS to a Kubernetes Controller - The Kustomize Way</a></h2>
-<p>I recently worked on adding metrics and TLS support to the <a href="https://github.com/kubernetes-sigs/node-readiness-controller">Node Readiness Controller</a>, a kubernetes-sigs project I contribute to. What I thought would be a straightforward config change turned into a rabbit hole of Kustomize components, cert-manager wiring, and Makefile gymnastics. Here's what happened.</p>
-
-    
-      <nav class="md-post__action">
-        <a href="2026/02/12/adding-metrics--tls-to-a-kubernetes-controller---the-kustomize-way/">
-          Continue reading
-        </a>
-      </nav>
-    
-    
-  </div>
-</article>
+        A Conversation Worth Having Publicly
       
+    </span>
+  </a>
+  
+</li>
       
-        
-          
-
-
-
-<nav class="md-pagination">
+    </ul>
   
 </nav>
-        
-      
+                
+            </div>
+        </div>
     </div>
-  </div>
+    <article class="md-content__inner md-typeset">
+        
+        <div class="md-post__content-meta">
+            <time datetime="2026-03-30 00:00:00+00:00">March 30, 2026</time>
+            
+            <span class="md-meta-separator">•</span>
+            <span>
+                
+                
+                4 min read
+                
+            </span>
+            
+        </div>
+
+        
+        
+  
+
+
+  <nav class="md-tags" >
+    
+      
+      
+      
+      
+        <span class="md-tag">SLOs</span>
+      
+    
+      
+      
+      
+      
+        <span class="md-tag">architecture</span>
+      
+    
+      
+      
+      
+      
+        <span class="md-tag">go</span>
+      
+    
+  </nav>
+
+
+  
+  
+
+
+<h1 id="operationalizing-node-readiness-at-scale-slos-metrics-and-what-happens-when-a-gpu-node-isnt-ready">Operationalizing Node Readiness at Scale — SLOs, Metrics, and What Happens When a GPU Node Isn't Ready</h1>
+<p>Infrastructure war stories from the AI era usually start the same way: a training job queued, GPUs theoretically available, nodes technically "Ready"  and yet, nothing runs. You dig in. The DRA driver wasn't initialized. Calico hadn't finished programming the network dataplane. The node was marked Ready by kubelet before the workload runtime was live.</p>
+<p>This is the node readiness gap. And at scale, it gets expensive fast.</p>
+<!-- more -->
+
+<hr />
+<h2 id="the-massive-workload-problem">The Massive Workload Problem</h2>
+<p>With traditional workloads, a node being briefly unready was a nuisance pods would reschedule, retry, move on. The blast radius was limited, some might say it as a usual flow.</p>
+<p>AI/ML workloads change the calculus completely.</p>
+<p>A single GPU training job might need 8, 64, or 512 nodes to cooperate simultaneously. The nodes carry expensive GPUs. When they join a cluster, they go through initialization sequences: pulling large container images, initializing GPU drivers, setting up fabric interfaces, programming CNI rules. Each of these takes time and during that window, the node might report <code>Ready</code> to Kubernetes while still being functionally unready for the workload.</p>
+<p><strong>The consequences:</strong></p>
+<ul>
+<li>Pods get scheduled and immediately crash-loop waiting for initialization</li>
+<li>GPU time burns while pods restart</li>
+<li>Distributed jobs with collective operations stall because even a single node's unreadiness blocks the mesh</li>
+</ul>
+<p>When you have 1,000+ nodes which is routine for AI infrastructure, even a one-minute delay per node during bootstrap adds up to thousands of GPU-hours lost annually.</p>
+<hr />
+<h2 id="what-node-readiness-controller-does">What Node Readiness Controller Does</h2>
+<p><a href="https://github.com/kubernetes-sigs/node-readiness-controller">Node Readiness Controller (NRC)</a> is a Kubernetes controller that lets you define declarative readiness rules for nodes. When a node doesn't meet your requirements, it gets tainted. Workloads won't land there. When conditions are satisfied, the taint is removed automatically.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">readiness.node.x-k8s.io/v1alpha1</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NodeReadinessRule</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nt">metadata</span><span class="p">:</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpu-driver-readiness</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="nt">spec</span><span class="p">:</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w"> </span><span class="nt">enforcementMode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">continuous</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w"> </span><span class="nt">conditions</span><span class="p">:</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">   </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;random.com/DRADriverReady&quot;</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">     </span><span class="nt">requiredStatus</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;True&quot;</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w"> </span><span class="nt">taint</span><span class="p">:</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">    </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;readiness.k8s.io/DRAnotReady&quot;</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">    </span><span class="nt">effect</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;NoSchedule&quot;</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="w">    </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;pending&quot;</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="w"> </span><span class="nt">nodeSelector</span><span class="p">:</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="w">   </span><span class="nt">matchLabels</span><span class="p">:</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="w">     </span><span class="nt">random</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">label</span><span class="w"> </span>
+</code></pre></div>
+<p>This is clean, one can have multiple rules for each of the infrastructure components(provided they update the node condition - which is a good practice and if not worth exploring NPD - Node Problem Detector). But here's what most operators ask next: <strong>"Okay, how do I know if this is working? How do I know which rule is slowing things down? And how do I set reliability targets for node readiness itself?"</strong></p>
+<p>That's where metrics and SLOs come in.</p>
+<hr />
+<h2 id="framing-slos-for-node-readiness">Framing SLOs for Node Readiness</h2>
+<p>SLOs (Service Level Objectives) are a way of encoding reliability targets as measurable numbers. In production infrastructure, you've likely seen them for APIs (99.9% of requests &lt; 200ms) or services (99.95% uptime). Node readiness is equally a production concern and defining SLOs around it makes the problem tractable.</p>
+<p>For NRC, there are three SLO categories worth thinking about:</p>
+<h3 id="slo-1-time-to-ready-node-bootstrap-latency">SLO 1: "Time-to-Ready" (Node Bootstrap Latency)</h3>
+<blockquote>
+<p><strong>The Goal:</strong> 95% of new nodes must pass all initialization rules and become fully schedulable within X seconds (e.g., 60 seconds for CPU nodes, 5 minutes for GPU nodes).</p>
+</blockquote>
+<p><strong>Metrics Used:</strong> A combination of K8s Node <code>CreationTimestamp</code> joined with NRC's readiness timestamps, or looking at the rate of <code>node_readiness_bootstrap_completed_total</code>.</p>
+<p><strong>Why it matters:</strong> In an auto-scaling cluster handling bursty AI workloads, nodes sitting in a "NotReady" or "Tainted" state cost money without doing work. By tracking this SLO, platform teams can explicitly monitor how much time is wasted before the workloads actually start working.</p>
+<h3 id="slo-2-controller-evaluation-latency-performance-slo">SLO 2: Controller Evaluation Latency (Performance SLO)</h3>
+<blockquote>
+<p><strong>The Goal:</strong> 99% of rule evaluations by the Node Readiness Controller must execute in under 50ms.</p>
+</blockquote>
+<p><strong>Metrics Used:</strong> <code>node_readiness_evaluation_duration_seconds_bucket</code> (The Prometheus histogram).</p>
+<p><strong>Why it matters:</strong> When you operate at scale (e.g., thousands of nodes joining a pool), the controller itself cannot become a bottleneck. If the reconciliation loop is slow, nodes might technically be ready but remain tainted, introducing artificial scheduling delays. Demonstrating how NRC hits this P99 gives enterprise attendees confidence that it scales.</p>
+<h3 id="slo-3-rule-compliance-ratio-availability-slo">SLO 3: Rule Compliance Ratio (Availability SLO)</h3>
+<blockquote>
+<p><strong>The Goal:</strong> Sustained 99.9% rule success rate over a 7-day window.</p>
+</blockquote>
+<p><strong>Metrics Used:</strong> <code>node_readiness_failures_total</code> vs total evaluations.</p>
+<p><strong>Why it matters:</strong> It moves "Readiness" from a binary state to a holistic health metric. If the compliance ratio drops below 99.9%, it's usually an early warning system that an infrastructure (like CSI, DRA, or NVIDIA Device Plugin) is failing or crash-looping before workloads start failing.</p>
+<h3 id="slo-4-false-positive-scheduling-rate-zero-tolerance-slo">SLO 4: False Positive Scheduling Rate (Zero-Tolerance SLO)</h3>
+<blockquote>
+<p><strong>The Goal:</strong> 0 pods scheduled onto nodes lacking required infrastructure.</p>
+</blockquote>
+<p><strong>Metrics Used:</strong> Monitoring <code>node_readiness_taint_operations_total</code> (specifically tracking the instantaneous application of <code>NoSchedule</code> taints to joining nodes).</p>
+<p><strong>Why it matters:</strong> This directly ties back to your introduction. A single missed taint means a high-cost GPU pod lands on a node without its DRA driver, fails, and gets BackOff, ruining a distributed training job. This SLO proves the absolute necessity of the controller.</p>
+<hr />
+<h2 id="what-nrc-exposes-today">What NRC Exposes Today</h2>
+<p>The controller already emits the following metrics via its Prometheus endpoint:</p>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Type</th>
+<th>Labels</th>
+<th>What It Tells You</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>node_readiness_rules_total</code></td>
+<td>Gauge</td>
+<td>—</td>
+<td>Number of active NRR objects</td>
+</tr>
+<tr>
+<td><code>node_readiness_taint_operations_total</code></td>
+<td>Counter</td>
+<td><code>rule</code>, <code>operation</code></td>
+<td>Pace of taint add/remove per rule</td>
+</tr>
+<tr>
+<td><code>node_readiness_evaluation_duration_seconds</code></td>
+<td>Histogram</td>
+<td>—</td>
+<td>Time spent on a single rule evaluation</td>
+</tr>
+<tr>
+<td><code>node_readiness_failures_total</code></td>
+<td>Counter</td>
+<td><code>rule</code>, <code>reason</code></td>
+<td>Failed evaluations broken down by rule and error type</td>
+</tr>
+<tr>
+<td><code>node_readiness_bootstrap_completed_total</code></td>
+<td>Counter</td>
+<td><code>rule</code></td>
+<td>Nodes that graduated from bootstrap-only rules</td>
+</tr>
+</tbody>
+</table>
+<p>These are metrics for building the SLOs described above, allowing operators to build robust dashboards and alerting rules directly in Prometheus and Grafana.</p>
+<hr />
+<h2 id="a-conversation-worth-having-publicly">A Conversation Worth Having Publicly</h2>
+<p>The metric surface described above makes it possible to answer questions that operators face in production every day:</p>
+<ul>
+<li>Which rule is my bottleneck during node scale-up?</li>
+<li>Why did 3 nodes in zone-B take 8 minutes to become schedulable this morning?</li>
+<li>Am I meeting my node availability SLO for my GPU pool?\</li>
+<li>I have few drivers that take a lot more time then expected, should I switch?</li>
+</ul>
+<p>These questions matter even more as AI infrastructure scales.</p>
+<p><em>Node Readiness Controller is a kubernetes-sigs project. Contributions and feedback welcome at <a href="https://github.com/kubernetes-sigs/node-readiness-controller">github.com/kubernetes-sigs/node-readiness-controller</a>.</em></p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+
+
+  
+
+
+
+        
+    </article>
+</div>
 
           
 <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
@@ -693,10 +896,10 @@
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "toc.follow", "toc.integrate", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "toc.follow", "toc.integrate", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate"], "search": "../../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../../../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
     
   </body>
